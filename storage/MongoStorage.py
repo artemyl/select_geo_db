@@ -49,19 +49,18 @@ class MongoStorage(AbstractStorage):
                         }
                 }
             )
-            return cursor
+            return cursor[0] if cursor.count() > 0 else None
 
         for point in test_data:
-            cursor = find_point(point)
-            # print "Next point result"
-            # for result in cursor:
-            #    print result
+            result = find_point(point)
+        # print "Mongo index size = %s" % str(self.db.command('collStats', MongoStorage.collection_name))
 
     def prepare_storage_for_experiment(self, test_data):
         self.db = self.client[MongoStorage.db_name]
         self.collection = self.db.create_collection(MongoStorage.collection_name)
         self.collection.create_index([(MongoStorage.key_id, 1)])
         self.collection.create_index([(MongoStorage.key_position, GEOSPHERE)])
+        # print "Mongo index size = %s" % str(self.db.command('collStats', MongoStorage.collection_name))
         for t in test_data:
             self.collection.insert({
                 MongoStorage.key_id: t['id'],

@@ -2,10 +2,11 @@ import random
 
 from storage.MongoStorage import MongoStorage
 from storage.PosgreSQLStorage import PostgreSQLStorage
+from storage.RedisStorage import RedisStorage
 
 TEST_DATA_SIZE = 3000
-STORAGE_LIST = MongoStorage(), PostgreSQLStorage()
-# STORAGE_LIST = PostgreSQLStorage(),
+STORAGE_LIST = RedisStorage(), MongoStorage(), PostgreSQLStorage()
+# STORAGE_LIST = MongoStorage(),
 
 
 def generate_test_data(count):
@@ -37,7 +38,7 @@ def generate_test_update_data(count):
     return result
 
 test_data = generate_test_data(TEST_DATA_SIZE)
-search_test_data = generate_test_search_data(TEST_DATA_SIZE * 100)
+search_test_data = generate_test_search_data(TEST_DATA_SIZE)
 update_test_data = generate_test_update_data(TEST_DATA_SIZE)
 
 
