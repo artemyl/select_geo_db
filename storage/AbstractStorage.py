@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 
 
-class AbstractStorage:
+class AbstractStorage(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
