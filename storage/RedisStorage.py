@@ -24,9 +24,6 @@ class RedisStorage(AbstractStorage):
                 dist_km=10
             )
             result = self._redis.execute_command(command)
-            i += 1
-            if i % 1000 == 0:
-                print i
 
     def prepare_storage_for_experiment(self, test_data):
         for item in test_data:
