@@ -2,10 +2,11 @@ import random
 
 from storage.MongoStorage import MongoStorage
 from storage.PosgreSQLStorage import PostgreSQLStorage
+from storage.PostgreSQLStorage_Distance import PostgreSQLStorageUsingDistance
 from storage.RedisStorage import RedisStorage
 
 TEST_DATA_SIZE = 3000
-STORAGE_LIST = RedisStorage(), MongoStorage(), PostgreSQLStorage()
+STORAGE_LIST = RedisStorage(), MongoStorage(), PostgreSQLStorage(), PostgreSQLStorageUsingDistance()
 # STORAGE_LIST = MongoStorage(),
 
 
@@ -44,6 +45,7 @@ update_test_data = generate_test_update_data(TEST_DATA_SIZE)
 
 for storage in STORAGE_LIST:
     try:
+        print "Testing %s" % storage.__class__.__name__
         storage.prepare_storage_for_experiment(test_data)
         storage.experiment_search(search_test_data)
         storage.experiment_update(update_test_data)
